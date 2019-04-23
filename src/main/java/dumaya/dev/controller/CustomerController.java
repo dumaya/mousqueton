@@ -1,7 +1,7 @@
-package com.hendisantika.adminlte.controller;
+package dumaya.dev.controller;
 
-import com.hendisantika.adminlte.model.Customers;
-import com.hendisantika.adminlte.service.CustomersService;
+import dumaya.dev.model.Customers;
+import dumaya.dev.service.CustomersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,6 @@
-package com.hendisantika.adminlte.repository;
+package dumaya.dev.repository;
 
-import com.hendisantika.adminlte.model.Customers;
+import dumaya.dev.model.Customers;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

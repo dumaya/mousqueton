@@ -1,4 +1,4 @@
-package com.hendisantika.adminlte.model;
+package dumaya.dev.model;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

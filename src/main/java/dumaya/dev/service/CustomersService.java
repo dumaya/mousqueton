@@ -1,7 +1,7 @@
-package com.hendisantika.adminlte.service;
+package dumaya.dev.service;
 
-import com.hendisantika.adminlte.model.Customers;
-import com.hendisantika.adminlte.repository.CustomersRepository;
+import dumaya.dev.model.Customers;
+import dumaya.dev.repository.CustomersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,5 @@
-package com.hendisantika.adminlte.model;
+package dumaya.dev.model;
+
 
 import lombok.*;
 

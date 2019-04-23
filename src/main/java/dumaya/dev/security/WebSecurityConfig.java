@@ -1,4 +1,4 @@
-package com.hendisantika.adminlte.security;
+package dumaya.dev.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -59,10 +59,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication().dataSource(datasource);
 
         // add new user "user" with password "password" - password will be encrypted
-        if (!userDetailsService.userExists("naruto")) {
+        if (!userDetailsService.userExists("alexis")) {
             List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
             authorities.add(new SimpleGrantedAuthority("USER"));
-            User userDetails = new User("naruto", encoder.encode("1234"), authorities);
+            User userDetails = new User("alexis", encoder.encode("1234"), authorities);
             userDetailsService.createUser(userDetails);
         }
     }
