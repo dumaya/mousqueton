@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mousqueton</title>
+    <link th:href="@{assets/css/bootstrap.css}" href="../static/assets/css/bootstrap.css" rel="stylesheet" />
+    <link th:href="@{assets/css/mousqueton.css}" href="../static/assets/css/mousqueton.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-default navbar-static-top">
+        <div class="container-fluid">
+          <ul class="nav navbar-nav">
+            <li class="active"> <a href="index.html">Accueil</a> </li>
+            <li> <a href="sites.html">Liste des Sites</a> </li>
+            <li> <a href="proposer-site.html">Proposer un Site</a> </li>
+            <li> <a href="rechercher-site.html">Rechercher un Site</a> </li>
+            <li> <a href="topos.html">Topos</a> </li>
+            <li> <a href="proposer-topo.html">Proposer un Topo au prêt</a> </li>
+            <li> <a href="emprunter-topo.html">Emprunter un Topo</a> </li>
+          </ul>
+           <form class="navbar-form navbar-right inline-form">
+            <div class="form-group">
+              <label for="login" hidden="true">Login</label>
+              <input type="text" class="input-sm form-control" placeholder="login" id="login" />
+              <label for="motdepasse" hidden="true">Mot de Passe</label>
+              <input type="password" class="input-sm form-control" placeholder="mot de passe" id="motdepasse"/>
+              <button type="submit" class="btn btn-primary btn-sm">Se connecter</button>
+            </div>
+          </form>
+        </div>
+      </nav>
+       <header class="page-header">
+        <h1>Mousqueton, partageons nos spots !</h1>
+      </header>
+      <div class="row">
+        <div class="col-lg-12 hidden-xs"><img class="img-thumbnail" th:src="@{img/climbing-2609319_960_720.jpg}" src="../static/img/climbing-2609319_960_720.jpg" alt="Escalade d'un rocher en forêt" /></div>
+        <div class="col-lg-12 visible-xs"><img class="img-thumbnail" th:src="@{img/climbing-2609319_petit.jpg}" src="../static/img/climbing-2609319_petit.jpg" alt="Escalade d'un rocher en forêt" /></div>
+      </div>
+     </div>
+  </body>
+</html>

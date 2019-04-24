@@ -28,12 +28,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/bootstrap/**", "/dist/**", "/plugins/**").permitAll()
+                .antMatchers( "/**","/assets/css/**","/assets/bootstrap/**","/img/**", "/plugins/**","/","/index","/proposer-topo").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
-                .failureUrl("/login?error")
-                .loginPage("/login")
+                .failureUrl("/index?error")
+                .loginPage("/index")
                 .defaultSuccessUrl("/")
                 .permitAll()
                 .and()

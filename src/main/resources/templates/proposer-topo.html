@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mousqueton</title>
+    <link href="../static/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="../static/assets/css/mousqueton.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-default navbar-static-top">
+        <div class="container-fluid">
+          <ul class="nav navbar-nav">
+            <li> <a href="index.html">Accueil</a> </li>
+            <li> <a href="sites.html">Liste des Sites</a> </li>
+            <li> <a href="proposer-site.html">Proposer un Site</a> </li>
+            <li> <a href="rechercher-site.html">Rechercher un Site</a> </li>
+            <li> <a href="topos.html">Topos</a> </li>
+            <li class="active"> <a href="proposer-topo.html">Proposer un Topo au prêt</a> </li>
+            <li> <a href="emprunter-topo.html">Emprunter un Topo</a> </li>
+          </ul>
+           <form class="navbar-form navbar-right inline-form">
+            <div class="form-group">
+              <label for="login" hidden>Login</label>
+              <input type="text" class="input-sm form-control" placeholder="login" id="login">
+              <label for="motdepasse" hidden>Mot de Passe</label>
+              <input type="password" class="input-sm form-control" placeholder="mot de passe" id="motdepasse">
+              <button type="submit" class="btn btn-primary btn-sm">Se connecter</button>
+            </div>
+          </form>
+
+        </div>
+      </nav>
+       <header class="page-header">
+        <h1>Propose un topo à preter</h1>
+      </header>
+      <div class="row">
+        <form data-toggle="validator" role="form" th:object="${proposer-topo}" th:action="@{/proposer-topo/save}" method="post" >
+          <div class="form-group">
+            <label for="site">Site/Spot</label>
+            <input type="text" required="true" class="form-control" th:field="*{site}" id="site" />
+          </div>
+          <! TODO avoir la liste des sites parmis lesquels choisir celui sur lequel est le topo>
+          <div class="form-group">
+            <label for="auteur">Auteur</label>
+            <input type="text" required="true" class="form-control" th:field="*{auteur}" id="auteur" />
+          </div>
+          <div class="form-group">
+            <label for="lieuDuPret">Lieu Du Prêt</label>
+            <input type="text" required="true" class="form-control" th:field="*{lieuDuPret}" id="lieuDuPret" />
+          </div>
+          <button type="submit" class="btn btn-primary">Proposer</button>
+        </form>
+      </div>
+     </div>
+  </body>
+</html>
+
