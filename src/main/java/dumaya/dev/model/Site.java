@@ -41,7 +41,7 @@ public class Site implements Serializable {
     @Column(length = 20)
     private String orientation;
 
-    @Column(length = 20)
+    @Column(length = 50)
     private String lieu;
 
     @Column(name = "dateMaj", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
