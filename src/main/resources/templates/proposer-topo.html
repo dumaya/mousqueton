@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <title>Mousqueton</title>
-    <link href="../static/assets/css/bootstrap.css" rel="stylesheet">
-    <link href="../static/assets/css/mousqueton.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link th:href="@{assets/css/mousqueton.css}" href="../static/assets/css/mousqueton.css" rel="stylesheet" />
   </head>
   <body>
     <div class="container">
@@ -19,28 +19,26 @@
             <li class="active"> <a href="proposer-topo.html">Proposer un Topo au prêt</a> </li>
             <li> <a href="emprunter-topo.html">Emprunter un Topo</a> </li>
           </ul>
-           <form class="navbar-form navbar-right inline-form">
+          <form class="navbar-form navbar-right inline-form">
             <div class="form-group">
-              <label for="login" hidden>Login</label>
-              <input type="text" class="input-sm form-control" placeholder="login" id="login">
-              <label for="motdepasse" hidden>Mot de Passe</label>
-              <input type="password" class="input-sm form-control" placeholder="mot de passe" id="motdepasse">
+              <label for="login" hidden="true">Login</label>
+              <input type="text" class="input-sm form-control" placeholder="login" id="login" />
+              <label for="motdepasse" hidden="true">Mot de Passe</label>
+              <input type="password" class="input-sm form-control" placeholder="mot de passe" id="motdepasse"/>
               <button type="submit" class="btn btn-primary btn-sm">Se connecter</button>
             </div>
           </form>
-
         </div>
       </nav>
        <header class="page-header">
         <h1>Propose un topo à preter</h1>
       </header>
       <div class="row">
-        <form data-toggle="validator" role="form" th:object="${proposer-topo}" th:action="@{/proposer-topo/save}" method="post" >
+        <form data-toggle="validator" role="form" th:object="${topo}" th:action="@{/proposer-topo/save}" method="post" >
           <div class="form-group">
             <label for="site">Site/Spot</label>
             <input type="text" required="true" class="form-control" th:field="*{site}" id="site" />
           </div>
-          <! TODO avoir la liste des sites parmis lesquels choisir celui sur lequel est le topo>
           <div class="form-group">
             <label for="auteur">Auteur</label>
             <input type="text" required="true" class="form-control" th:field="*{auteur}" id="auteur" />

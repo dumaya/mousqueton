@@ -1,20 +1,22 @@
 package dumaya.dev.service;
 
+
 import dumaya.dev.model.Topo;
-import dumaya.dev.repository.MousquetonRepository;
+import dumaya.dev.repository.TopoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TopoService extends AbstractService<Topo, Long> {
+public class TopoService {
 
     @Autowired
-    private MousquetonRepository mousquetonRepository;
+    private TopoRepository topoRepository;
 
-    @Override
-    protected JpaRepository<Topo, Long> getRepository() {
-        return mousquetonRepository;
+    public void save(String site, String auteur,String lieuDuPret) {
+        Topo topo = new Topo();
+        topo.setAuteur(auteur);
+        topo.setSite(site);
+        topo.setLieuDuPret(lieuDuPret);
+        topoRepository.save(topo);
     }
-
 }
