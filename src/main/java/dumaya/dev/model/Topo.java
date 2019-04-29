@@ -3,7 +3,6 @@ package dumaya.dev.model;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,20 +14,25 @@ public class Topo implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, length = 40)
-    @NotNull
-    private String site;
-
-    @Column(nullable = false, length = 40)
+    @Column(length = 40)
     @NotBlank
+    private String nom;
+
+    @Column(length = 500)
+    private String description;
+
+    @Column(length = 60)
+    @NotBlank
+    private String lieu;
+
+    @Column(nullable = false)
+    private boolean dispoPret;
+
+    @Column(name = "dateParution", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Date dateParution;
+
+    @Column(length = 40)
     private String auteur;
-
-    @Column(nullable = false, length = 40)
-    @NotBlank
-    private String lieuDuPret;
-
-    @Column(name = "dateMaj", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
-    private Date dateMaj;
 
     public Long getId() {
         return id;
@@ -38,35 +42,51 @@ public class Topo implements Serializable {
         this.id = id;
     }
 
-    public String getSite() {
-        return site;
+    public String getNom() {
+        return nom;
     }
 
-    public void setSite(String site) {
-        this.site = site;
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLieu() {
+        return lieu;
+    }
+
+    public void setLieu(String lieu) {
+        this.lieu = lieu;
+    }
+
+    public Date getDateParution() {
+        return dateParution;
+    }
+
+    public void setDateParution(Date dateParution) {
+        this.dateParution = dateParution;
     }
 
     public String getAuteur() {
         return auteur;
     }
-
     public void setAuteur(String auteur) {
         this.auteur = auteur;
     }
 
-    public String getLieuDuPret() {
-        return lieuDuPret;
+    public boolean isDispoPret() {
+        return dispoPret;
     }
 
-    public void setLieuDuPret(String lieuDuPret) {
-        this.lieuDuPret = lieuDuPret;
+    public void setDispoPret(boolean dispoPret) {
+        this.dispoPret = dispoPret;
     }
 
-    public Date getDateMaj() {
-        return dateMaj;
-    }
-
-    public void setDateMaj(Date dateMaj) {
-        this.dateMaj = dateMaj;
-    }
 }

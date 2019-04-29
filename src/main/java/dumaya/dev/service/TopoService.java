@@ -6,17 +6,25 @@ import dumaya.dev.repository.TopoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TopoService {
 
     @Autowired
     private TopoRepository topoRepository;
 
-    public void save(String site, String auteur,String lieuDuPret) {
+    public void save(String nom, String description, String lieu, String auteur, boolean dispoPret) {
         Topo topo = new Topo();
         topo.setAuteur(auteur);
-        topo.setSite(site);
-        topo.setLieuDuPret(lieuDuPret);
+        topo.setNom(nom);
+        topo.setDescription(description);
+        topo.setLieu(lieu);
+        topo.setDispoPret(dispoPret);
         topoRepository.save(topo);
+    }
+
+    public List<Topo> listeTopos() {
+        return topoRepository.findAll();
     }
 }

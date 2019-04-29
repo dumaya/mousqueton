@@ -35,17 +35,26 @@
       </header>
       <div class="row">
         <form data-toggle="validator" role="form" th:object="${topo}" th:action="@{/proposer-topo/save}" method="post" >
+         <legend>Ajout d'un topo dans ma liste</legend>
           <div class="form-group">
-            <label for="site">Site/Spot</label>
-            <input type="text" required="true" class="form-control" th:field="*{site}" id="site" />
+            <label for="nom">Nom du Topo ou du Spot</label>
+            <input type="text" class="form-control" th:field="*{nom}" id="nom" required="required" />
+          </div>
+          <div class="form-group">
+            <label for="auteur">Description</label>
+            <textarea type="textarea"  class="form-control" th:field="*{description}" id="description" ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="lieu">Lieu d'escalade</label>
+            <input type="text" class="form-control" th:field="*{lieu}" id="lieu" required="required" />
           </div>
           <div class="form-group">
             <label for="auteur">Auteur</label>
-            <input type="text" required="true" class="form-control" th:field="*{auteur}" id="auteur" />
+            <input type="text" class="form-control" th:field="*{auteur}" id="auteur"/>
           </div>
           <div class="form-group">
-            <label for="lieuDuPret">Lieu Du Prêt</label>
-            <input type="text" required="true" class="form-control" th:field="*{lieuDuPret}" id="lieuDuPret" />
+            <label for="dispoPret">Topo disponible au prêt ?</label>
+            <input class="checkbox" type="checkbox" th:field="*{dispoPret}" id="dispoPret" value="Topo disponible au prêt ?"/>
           </div>
           <button type="submit" class="btn btn-primary">Proposer</button>
         </form>

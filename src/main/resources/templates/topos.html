@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8" />
     <title>Mousqueton</title>
-    <link href="../static/assets/css/bootstrap.css" rel="stylesheet">
-    <link href="../static/assets/css/mousqueton.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link th:href="@{assets/css/mousqueton.css}" href="../static/assets/css/mousqueton.css" rel="stylesheet" />
   </head>
   <body>
     <div class="container">
@@ -19,25 +19,38 @@
             <li> <a href="proposer-topo.html">Proposer un Topo au prêt</a> </li>
             <li> <a href="emprunter-topo.html">Emprunter un Topo</a> </li>
           </ul>
-           <form class="navbar-form navbar-right inline-form">
+          <form class="navbar-form navbar-right inline-form">
             <div class="form-group">
-              <label for="login" hidden>Login</label>
-              <input type="text" class="input-sm form-control" placeholder="login" id="login">
-              <label for="motdepasse" hidden>Mot de Passe</label>
-              <input type="password" class="input-sm form-control" placeholder="mot de passe" id="motdepasse">
+              <label for="login" hidden="true">Login</label>
+              <input type="text" class="input-sm form-control" placeholder="login" id="login" />
+              <label for="motdepasse" hidden="true">Mot de Passe</label>
+              <input type="password" class="input-sm form-control" placeholder="mot de passe" id="motdepasse"/>
               <button type="submit" class="btn btn-primary btn-sm">Se connecter</button>
             </div>
           </form>
-
         </div>
       </nav>
        <header class="page-header">
-        <h1>Mousqueton, partageons nos spots !</h1>
+        <h1>Liste des topos</h1>
       </header>
-      <div class="row">
-        <div class="col-lg-12 hidden-xs"><img src="../static/img/img/climbing-2609319_960_720.jpg" alt="Escalade d'un rocher en forêt" class=img-thumbnail></div>
-        <div class="col-lg-12 visible-xs"><img src="../static/img/img/climbing-2609319_petit.jpg" alt="Escalade d'un rocher en forêt" class="img-thumbnail"></div>
-      </div>
+      <section class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Lieu</th>
+            <th>Date de parution</th>
+            <th>Disponible au prêt ?</th>
+          </tr>
+          <tr th:each ="topo : ${topos}">
+            <td th:utext="${topo.nom}">...</td>
+            <td th:utext="${topo.description}">...</td>
+            <td th:utext="${topo.lieu}">...</td>
+            <td th:utext="${topo.dateParution}">...</td>
+            <td th:utext="${topo.dispoPret} ? 'Oui' : 'Non'">...</td>
+          </tr>
+        </table>
+      </section>
      </div>
   </body>
 </html>

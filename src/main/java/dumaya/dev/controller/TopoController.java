@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 public class TopoController {
     private static final Logger LOGGER = LoggerFactory.getLogger(TopoController.class);
@@ -31,15 +33,27 @@ public class TopoController {
 
     @GetMapping("/proposer-topo")
     public String add(Model model) {
+        LOGGER.debug("afficher le formulaire topo");
         Topo topo = new Topo();
         model.addAttribute("topo", topo);
         return "proposer-topo";
     }
 
     @PostMapping(value = "/proposer-topo/save")
-    public String proposerTopoSubmit(@RequestParam(required=false) String site, @RequestParam(required=false) String auteur, @RequestParam String lieuDuPret, RedirectAttributes ra) {
-        topoService.save(site, auteur, lieuDuPret);
+    public String proposerTopoSubmit(@RequestParam String nom, @RequestParam(required=false) String description, @RequestParam String lieu,@RequestParam(required = false) String auteur, @RequestParam(required = false) Boolean dispoPret,RedirectAttributes ra) {
+        LOGGER.debug("submit du formulaire topo");
+        if (dispoPret == null){
+            dispoPret=false;
+        }
+        topoService.save(nom,description,lieu,auteur, dispoPret);
         ra.addFlashAttribute("successFlash", "Topo enregistré.");
         return "redirect:/proposer-topo";
+    }
+    @GetMapping("/topos")
+    public String affichelesTopos(Model model) {
+        LOGGER.debug("page affiche un topo");
+        List<Topo> topos= topoService.listeTopos();
+        model.addAttribute("topos", topos);
+        return "topos";
     }
 }
