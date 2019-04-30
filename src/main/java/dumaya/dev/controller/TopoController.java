@@ -7,10 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -27,19 +24,33 @@ public class TopoController {
     }
 
     @RequestMapping("/")
+    public String racine() {
+        return "index";
+    }
+
+    @RequestMapping("/index")
     public String index() {
         return "index";
     }
 
-    @GetMapping("/proposer-topo")
+    @GetMapping("/mes-topos")
     public String add(Model model) {
-        LOGGER.debug("afficher le formulaire topo");
+        LOGGER.debug("Liste des topos de l'utilisateur");
+
+        /** Liste des topos de l'utilisateur */
+        List<Topo> topos= topoService.listeTopos();
+
+        model.addAttribute("topos", topos);
+
+        /** Formulaire de création d'un topo */
+        LOGGER.debug("Init formulaire topo");
         Topo topo = new Topo();
         model.addAttribute("topo", topo);
-        return "proposer-topo";
+
+        return "mes-topos";
     }
 
-    @PostMapping(value = "/proposer-topo/save")
+    @PostMapping(value = "/mes-topos/save")
     public String proposerTopoSubmit(@RequestParam String nom, @RequestParam(required=false) String description, @RequestParam String lieu,@RequestParam(required = false) String auteur, @RequestParam(required = false) Boolean dispoPret,RedirectAttributes ra) {
         LOGGER.debug("submit du formulaire topo");
         if (dispoPret == null){
@@ -47,8 +58,18 @@ public class TopoController {
         }
         topoService.save(nom,description,lieu,auteur, dispoPret);
         ra.addFlashAttribute("successFlash", "Topo enregistré.");
-        return "redirect:/proposer-topo";
+        return "redirect:/mes-topos";
     }
+
+    @PostMapping(value = "/mes-topos/validerModif")
+    public String validerModifListe(@RequestParam long idTopo, RedirectAttributes ra) {
+        LOGGER.debug("validation des modif de la liste");
+        long idN =5;
+        topoService.changeDispo(idTopo);
+        ra.addFlashAttribute("successFlash", "Topo enregistré.");
+        return "redirect:/mes-topos";
+    }
+
     @GetMapping("/topos")
     public String affichelesTopos(Model model) {
         LOGGER.debug("page affiche un topo");

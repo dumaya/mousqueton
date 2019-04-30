@@ -7,6 +7,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 
+/**
+ * Description d'un Topo
+ */
 @Entity
 public class Topo implements Serializable {
 
