@@ -22,7 +22,7 @@ public class TopoService {
      * @param auteur auteur
      * @param dispoPret true quand le topo est dispo pour être prété
      */
-    public void save(String nom, String description, String lieu, String auteur, boolean dispoPret) {
+    public void enregistrer(String nom, String description, String lieu, String auteur, boolean dispoPret) {
         Topo topo = new Topo();
         topo.setAuteur(auteur);
         topo.setNom(nom);
@@ -33,18 +33,15 @@ public class TopoService {
     }
 
     /**
-     * @return liste de tous les topos
+     * @return liste de tous les topos en base
      */
     public List<Topo> listeTopos() {
         return topoRepository.findAll();
     }
 
     /**
-     * @param topos Liste des topos modifiée, à
+     * @param id Changer la dispo d'un topo par son id
      */
-    public void saveList(List<Topo> topos) {
-        topoRepository.save(topos);
-    }
 
     public void changeDispo(long id) {
         Topo topo = topoRepository.findById(id);
@@ -55,4 +52,13 @@ public class TopoService {
         }
         topoRepository.save(topo);
     }
+
+    /**
+     * @param id Supprimer un topo par son id
+     */
+    public void supprimerDispo(long id) {
+        Topo topo = topoRepository.findById(id);
+        topoRepository.delete(topo);
+    }
+
 }
