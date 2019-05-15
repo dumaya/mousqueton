@@ -1,16 +1,21 @@
 package dumaya.dev.controller;
 
 import dumaya.dev.model.Topo;
+import dumaya.dev.repository.UserRepository;
 import dumaya.dev.service.TopoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -24,6 +29,12 @@ public class TopoController {
         this.topoService = topoService;
     }
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Value("${erreur.saisie.topo}")
+    private String erreurSaisieTopo;
+
     @RequestMapping("/")
     public String racine() {
         return "index";
@@ -36,11 +47,12 @@ public class TopoController {
 
     @GetMapping("/mes-topos")
     @Secured("UTILISATEUR")
-    public String add(Model model) {
+    public String gestionTopo(Model model, Principal principal) {
         LOGGER.debug("Liste des topos de l'utilisateur");
 
         /** Liste des topos de l'utilisateur */
-        List<Topo> topos= topoService.listeTopos();
+        Long idCourant = userRepository.findByEmail(principal.getName()).getId();
+        List<Topo> topos= topoService.listeMesTopos(idCourant);
 
         model.addAttribute("topos", topos);
 
@@ -52,16 +64,22 @@ public class TopoController {
         return "mes-topos";
     }
 
-    @PostMapping(value = "/mes-topos/save")
+    @PostMapping(value = "/mes-topos")
     @Secured("UTILISATEUR")
-    public String proposerTopoSubmit(@RequestParam String nom, @RequestParam(required=false) String description, @RequestParam String lieu,@RequestParam(required = false) String auteur, @RequestParam(required = false) Boolean dispoPret,RedirectAttributes ra) {
+    public String proposerTopoSubmit(Model model,@Valid @ModelAttribute("topo") Topo topo, Principal principal, BindingResult result) {
+
         LOGGER.debug("submit du formulaire topo");
-        if (dispoPret == null){
-            dispoPret=false;
+
+        if (result.hasErrors()){
+            /** Garder la liste des topos de l'utilisateur */
+            List<Topo> topos= topoService.listeTopos();
+            model.addAttribute("topos", topos);
+            model.addAttribute("erreurSaisieTopo", erreurSaisieTopo);
+            return "mes-topos";
+        } else {
+            topoService.enregistrer(topo, userRepository.findByEmail(principal.getName()));
+            return "redirect:/mes-topos";
         }
-        topoService.enregistrer(nom,description,lieu,auteur, dispoPret);
-        ra.addFlashAttribute("successFlash", "Topo enregistré.");
-        return "redirect:/mes-topos";
     }
 
     @PostMapping(value = "/mes-topos/modifDispoPret")

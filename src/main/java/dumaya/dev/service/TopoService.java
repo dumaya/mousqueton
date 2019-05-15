@@ -2,6 +2,7 @@ package dumaya.dev.service;
 
 
 import dumaya.dev.model.Topo;
+import dumaya.dev.model.User;
 import dumaya.dev.repository.TopoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,19 +17,11 @@ public class TopoService {
 
     /**
      * Enregistrement du formulaire de création de Topo. Seul le nom, le lieu et l'info dispoPret sont obligatoires
-     * @param nom nom du topo
-     * @param description description du site d'escalade
-     * @param lieu lieu de grimpe
-     * @param auteur auteur
-     * @param dispoPret true quand le topo est dispo pour être prété
+     * @param topo un objet de type topo à enregistrer
+     * @param user du user courant
      */
-    public void enregistrer(String nom, String description, String lieu, String auteur, boolean dispoPret) {
-        Topo topo = new Topo();
-        topo.setAuteur(auteur);
-        topo.setNom(nom);
-        topo.setDescription(description);
-        topo.setLieu(lieu);
-        topo.setDispoPret(dispoPret);
+    public void enregistrer(Topo topo, User user) {
+        topo.setUserProprietaire(user);
         topoRepository.save(topo);
     }
 
@@ -37,6 +30,15 @@ public class TopoService {
      */
     public List<Topo> listeTopos() {
         return topoRepository.findAll();
+    }
+
+    /**
+     * @return liste de tous les topos de l'utilisateur courant
+     * @param idCourant
+     */
+    public List<Topo> listeMesTopos(Long idCourant)
+    {
+         return topoRepository.findAllByUserProprietaire_Id(idCourant);
     }
 
     /**

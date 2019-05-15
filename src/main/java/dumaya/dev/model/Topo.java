@@ -1,8 +1,7 @@
 package dumaya.dev.model;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -36,6 +35,13 @@ public class Topo implements Serializable {
 
     @Column(length = 40)
     private String auteur;
+
+    @ManyToOne
+    private User userProprietaire;
+
+    @ManyToOne
+    private User userEmprunteur;
+
 
     public Long getId() {
         return id;
@@ -92,4 +98,19 @@ public class Topo implements Serializable {
         this.dispoPret = dispoPret;
     }
 
+    public User getUserProprietaire() {
+        return userProprietaire;
+    }
+
+    public void setUserProprietaire(User userProprietaire) {
+        this.userProprietaire = userProprietaire;
+    }
+
+    public User getUserEmprunteur() {
+        return userEmprunteur;
+    }
+
+    public void setUserEmprunteur(User userEmprunteur) {
+        this.userEmprunteur = userEmprunteur;
+    }
 }
