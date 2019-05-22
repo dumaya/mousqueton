@@ -7,30 +7,10 @@
     <link th:href="@{assets/css/mousqueton.css}" href="../static/assets/css/mousqueton.css" rel="stylesheet" />
   </head>
   <body>
-    <div class="container">
-      <nav class="navbar navbar-default navbar-static-top">
-        <div class="container-fluid">
-          <ul class="nav navbar-nav">
-            <li class="active"> <a href="index">Accueil</a> </li>
-            <li> <a href="sites">Liste des Sites</a> </li>
-            <li> <a href="proposer-site">Proposer un Site</a> </li>
-            <li> <a href="rechercher-site">Rechercher un Site</a> </li>
-            <li> <a href="topos">Topos</a> </li>
-            <li> <a href="mes-topos">Mes topos</a> </li>
-            <li> <a href="emprunter-topo">Emprunter un Topo</a> </li>
-          </ul>
-           <form class="navbar-form navbar-right inline-form">
-            <div class="form-group">
-              <label for="login" hidden="true">Login</label>
-              <input type="text" class="input-sm form-control" placeholder="login" id="login" />
-              <label for="motdepasse" hidden="true">Mot de Passe</label>
-              <input type="password" class="input-sm form-control" placeholder="mot de passe" id="motdepasse"/>
-              <button type="submit" class="btn btn-primary btn-sm">Se connecter</button>
-            </div>
-          </form>
-        </div>
-      </nav>
-       <header class="page-header">
+  <div th:replace="fragments/header :: header"/>
+
+  <div class="container">
+    <header class="page-header">
         <h1>Mousqueton, partageons nos spots !</h1>
       </header>
       <div class="row">
@@ -38,5 +18,7 @@
         <div class="col-lg-12 visible-xs"><img class="img-thumbnail" th:src="@{img/climbing-2609319_petit.jpg}" src="../static/img/climbing-2609319_petit.jpg" alt="Escalade d'un rocher en forêt" /></div>
       </div>
      </div>
+  <div th:replace="fragments/footer :: footer"/>
+
   </body>
 </html>

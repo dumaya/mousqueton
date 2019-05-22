@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mousqueton</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link th:href="@{assets/css/mousqueton.css}" href="../static/assets/css/mousqueton.css" rel="stylesheet" />
+  </head>
+  <body>
+  <div th:replace="fragments/header :: header"/>
+
+  <div class="container">
+
+    <div class="starter-template">
+      <h1>Normal page (No need login)</h1>
+    </div>
+
+  </div>
+  <div th:replace="fragments/footer :: footer"/>
+
+  </body>
+</html>

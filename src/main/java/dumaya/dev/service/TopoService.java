@@ -1,6 +1,7 @@
 package dumaya.dev.service;
 
 
+import dumaya.dev.exception.TopoErrorException;
 import dumaya.dev.model.Topo;
 import dumaya.dev.model.User;
 import dumaya.dev.repository.TopoRepository;
@@ -29,7 +30,7 @@ public class TopoService {
      * @return liste de tous les topos en base
      */
     public List<Topo> listeTopos() {
-        return topoRepository.findAll();
+        return topoRepository.findAllByDispoPretTrueAndUserEmprunteurIsNull();
     }
 
     /**
@@ -46,7 +47,7 @@ public class TopoService {
      */
 
     public void changeDispo(long id) {
-        Topo topo = topoRepository.findById(id);
+        Topo topo = topoRepository.findByIdAndUserEmprunteurIsNull(id);
         if (topo.isDispoPret()){
             topo.setDispoPret(false);
         } else {
@@ -59,8 +60,43 @@ public class TopoService {
      * @param id Supprimer un topo par son id
      */
     public void supprimerDispo(long id) {
-        Topo topo = topoRepository.findById(id);
+        Topo topo = topoRepository.findByIdAndUserEmprunteurIsNull(id);
         topoRepository.delete(topo);
     }
+
+    /**
+     * Faire une demande d'emprunt
+     * @param idTopo
+     * @param user
+     */
+    public void emprunterTopo(long idTopo, User user) {
+        Topo topo = topoRepository.findByIdAndDispoPretTrueAndUserEmprunteurIsNull(idTopo);
+        if (topo == null) {
+            throw new TopoErrorException();
+        }
+        topo.setUserEmprunteur(user);
+        topoRepository.save(topo);
+    }
+
+    /**
+     * Accepter l'emprunt, le user emprunter ne doit pas être vide
+     * @param idTopo
+     */
+    public void accepterEmprunt(long idTopo) {
+        Topo topo = topoRepository.findByIdAndUserEmprunteurIsNotNull(idTopo);
+        topo.setDispoPret(false);
+        topoRepository.save(topo);
+    }
+    /**
+     * Retour d'emprunt, le user emprunter ne doit pas être vide
+     * @param idTopo
+     */
+    public void retourEmprunt(long idTopo) {
+        Topo topo = topoRepository.findByIdAndUserEmprunteurIsNotNull(idTopo);
+        topo.setDispoPret(true);
+        topo.setUserEmprunteur(null);
+        topoRepository.save(topo);
+    }
+
 
 }

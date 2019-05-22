@@ -19,17 +19,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserService userService;
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/","/index").permitAll()
-                .antMatchers("/mes-topos").hasAnyRole("UTILISATEUR")
+                .antMatchers("/","/index","/about").permitAll()
+                .antMatchers("/mes-topos","/ajouttopo","/user/**").hasAnyRole("UTILISATEUR")
                 .and()
-                .httpBasic()
+                    .httpBasic()
                 .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                    .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                    .formLogin()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/")
+                    .permitAll()
+                .and()
+                .logout()
+                .permitAll();
         http.csrf().disable();
         http.headers().frameOptions().disable();
 
